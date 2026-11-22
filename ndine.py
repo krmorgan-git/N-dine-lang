@@ -15,6 +15,49 @@ import subprocess
 import unicodedata
 from typing import Dict, List, Optional, Tuple
 
+DEFAULT_DB_PATH = os.path.join("db", "dine_lang.db")
+
+
+def load_env_file(path: str = ".env") -> None:
+    """
+    Loads KEY=VALUE pairs from a .env file into os.environ.
+
+    Uses python-dotenv when installed (declared in requirements.txt) and falls
+    back to a small built-in parser otherwise. Existing environment variables
+    take precedence; blank lines and lines starting with '#' are ignored.
+    """
+    if not os.path.isfile(path):
+        return
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        load_dotenv = None
+    if load_dotenv is not None:
+        load_dotenv(path, override=False)
+        return
+    with open(path, "r", encoding="utf-8") as handle:
+        for raw_line in handle:
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+def get_gemini_api_key() -> Optional[str]:
+    """
+    Returns the Google Gemini API key from the environment or .env file.
+
+    Environment variables take precedence over .env. Returns None when the
+    key is unset or blank. This function performs no network calls.
+    """
+    load_env_file()
+    value = os.environ.get("GEMINI_API_KEY", "").strip()
+    return value or None
+
 
 class NDineEngine:
     """
@@ -25,8 +68,13 @@ class NDineEngine:
 
     VALID_SLOTS = ("T", "S", "V", "O", "L", "Q", "M", "C", "R")
 
-    def __init__(self, db_path: str = "dine_lang.db"):
-        self.db_path = db_path
+    def __init__(self, db_path: Optional[str] = None):
+        """
+        Database location. Defaults to DEFAULT_DB_PATH (db/dine_lang.db),
+        inside the db/ directory created by bootstrap.py. Pass an explicit
+        path to override it, which is useful for tests or alternate datasets.
+        """
+        self.db_path = db_path or DEFAULT_DB_PATH
         self.init_db()
 
     @staticmethod
@@ -77,6 +125,9 @@ class NDineEngine:
 
     def init_db(self) -> None:
         """Creates the SQLite lexicon table if it does not already exist."""
+        parent = os.path.dirname(self.db_path)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
         with sqlite3.connect(self.db_path) as conn:
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS lexicon (
@@ -199,7 +250,7 @@ class NDineEngine:
 
 
 if __name__ == "__main__":
-    engine = NDineEngine(db_path="dine_lang.db")
+    engine = NDineEngine()
 
     # Seed sample entries if database is empty
     if not engine.search_lexicon("water"):
