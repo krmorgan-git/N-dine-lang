@@ -1,6 +1,7 @@
 __pycache__/
 .venv/
+csv/
 db/
-*.db
+md/
 .env
 requirements.txt
