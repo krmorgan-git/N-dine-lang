@@ -126,10 +126,10 @@ cd N-dine-lang
 Immediately after cloning, run the bootstrap script from the project root:
 
 ```bash
-python bootstrap.py
+python3 bootstrap.py
 ```
 
-This creates `db/`, `csv/`, `md/`, and `.env`, and writes `requirements.txt` if it is missing.
+This creates  `csv/`, `db/`, `md/`, and `.env`, and writes `requirements.txt` if it is missing.
 
 > **Optional:** open `.env` and add your Gemini API key — only needed for Gemini-backed features. If you are not using Gemini, skip this step.
 
