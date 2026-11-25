@@ -1,7 +1,7 @@
 # N-dine-lang
 
 **Author:** Kelly R. Morgan, Assistant Professor of Information Technology  
-**Affiliation:** Navajo Technical University (Crownpoint, NM)  
+**Affiliation:** Navajo Technical University (Crownpoint, NM & Chinle, AZ)  
 **Created:** November 2026  
 
 ---
@@ -74,6 +74,26 @@ Every `N-dine-lang` expression follows a strict, unchanging canonical slot order
   * **`N-dine-lang`:** `T-fut-tomorrow S-1pl V-go L-flagstaff.`
   * **English:** Tomorrow we will go to Flagstaff.
   * **Diné (Plain ASCII):** `Yiskaago kinlanigoo diikah.`
+
+---
+
+## Multi-Step Reasoning (The 4-Stage Diné Cycle)
+
+For math, programming, and quantum-computing workflows, `N-dine-lang` pairs with the 4-stage Diné cycle—keeping one flat `T S V O L` expression per step:
+
+1. **Thinking (*Nitsáhákees*):** Identify given values and unknowns (`T-prs S-inputs V-be O-2-and-3.`).
+2. **Planning (*Nahatʼá*):** Break into ordered operations (`T-fut S-1pl V-add O-2-and-3.`).
+3. **Implementing (*Iiná*):** Execute one operation per line (`M-now S-1pl V-add O-2-and-3.`).
+4. **Reflecting (*Siihasin*):** Verify the result and constraints (`T-prs S-result V-equal O-5.`).
+
+---
+
+## Ecosystem Projects
+
+- **`N-dine-lang-studio`** — Modern lexicon curation (`dine_lex_modern.db`), JSONL export, Gemma 3 1B LoRA fine-tuning, and `.gguf` export (including Google Colab support).
+- **`N-dine-lang-app`** — Standalone offline Diné translator and lexicon lookup powered by the fine-tuned `.gguf` model.
+- **`N-dine-lang-math`** — Interactive 4-stage Diné math, geometry, and quantum-computing preview demo app.
+- **`N-dine-lang-translator`** — Original starter Flask web application.
 
 ---
 
