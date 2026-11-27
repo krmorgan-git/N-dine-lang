@@ -14,22 +14,19 @@
 
 ## Core Architecture (`T S V O L`)
 
-Every `N-dine-lang` expression follows a strict, unchanging canonical slot order:
+Every `N-dine-lang` expression follows a fixed left-to-right slot order:
 
 ```text
-[T/Q/C/M]-[time]  S-[subject]  V-[verb]  O-[object]  L-[location]
+T-[time]  S-[subject]  V-[verb]  O-[object]  L-[location]
 ```
 
-| Prefix | Role | Description | Example |
+| Prefix | Role | Plain-English Meaning | Example |
 | :--- | :--- | :--- | :--- |
-| **`T-`** | Tense / Time | `pst` (past), `prs` (present), `fut` (future) | `T-pst`, `T-fut-tomorrow` |
-| **`Q-`** | Question | Interrogative marker with tense | `Q-prs` |
-| **`C-`** | Condition | Conditional clause (`if`) | `C-prs` |
-| **`M-`** | Mode / Command | Imperative execution trigger | `M-now` |
-| **`S-`** | Subject | Actor or pronoun (`1sg`, `2sg`, `3sg`, `1pl`, `3pl`) | `S-1sg`, `S-admin` |
-| **`V-`** | Verb | Core action root (`un-` for negation) | `V-drink`, `V-un-allow` |
-| **`O-`** | Object | Direct receiver or target argument | `O-water`, `O-rout-tul` |
-| **`L-`** | Location | Physical or logical destination/environment | `L-home`, `L-serv-dom` |
+| **`T-`** | Time | `pst` (past), `prs` (present), `fut` (future) | `T-pst`, `T-fut-tomorrow` |
+| **`S-`** | Subject | Who does the action (`1sg` = I, `2sg` = you, `1pl` = we, or a noun) | `S-1sg`, `S-boy` |
+| **`V-`** | Verb | The action or state (`un-` means *not*) | `V-drink`, `V-un-like` |
+| **`O-`** | Object | What receives the action | `O-water`, `O-coffee` |
+| **`L-`** | Location | Where it happens or where someone is going | `L-home`, `L-flagstaff` |
 
 ---
 
@@ -60,7 +57,7 @@ For math, programming, and quantum-computing workflows, `N-dine-lang` pairs with
 
 1. **Thinking (*Nitsáhákees*):** Identify given values and unknowns (`T-prs S-inputs V-be O-2-and-3.`).
 2. **Planning (*Nahatʼá*):** Break into ordered operations (`T-fut S-1pl V-add O-2-and-3.`).
-3. **Implementing (*Iiná*):** Execute one operation per line (`M-now S-1pl V-add O-2-and-3.`).
+3. **Implementing (*Iiná*):** Execute one operation per line (`T-prs S-1pl V-add O-2-and-3.`).
 4. **Reflecting (*Siihasin*):** Verify the result and constraints (`T-prs S-result V-equal O-5.`).
 
 ---
